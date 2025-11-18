@@ -4,9 +4,9 @@ import bcrypt from "bcryptjs";
 
 export const employeeRegister = async(req,res)=>{
     try {
-        const {name,email,password,phone,gender,id} = req.body;
+        const {name,email,password,phone,gender} = req.body;
 
-        if(!email || !name || !password || !gender || !phone || !id){
+        if(!email || !name || !password || !gender || !phone){
             return res.status(400).json({success:false, message:"all fields needed"});
         }
 
@@ -18,7 +18,7 @@ export const employeeRegister = async(req,res)=>{
         const hashPassword= await bcrypt.hash(password,10)
 
         const newEmployee = new employeeModel({
-            name,email,password: hashPassword,phone,gender,id
+            name,email,password: hashPassword,phone,gender
         });
 
 
@@ -43,9 +43,9 @@ export const employeeRegister = async(req,res)=>{
 
 export const employerRegister = async(req,res)=>{
     try {
-        const {name,email,password,phone,gender,id} = req.body;
+        const {name,email,password,phone,gender} = req.body;
 
-        if(!email || !name || !password || !gender || !phone || !id){
+        if(!email || !name || !password || !gender || !phone){
             return res.status(400).json({success:false, message:"all fields needed"});
         }
 
@@ -56,12 +56,12 @@ export const employerRegister = async(req,res)=>{
         const hashPassword= await bcrypt.hash(password,10)
 
         const newEmployer = new employerModel({
-            name,email,password:hashPassword,phone,gender,id
+            name,email,password:hashPassword,phone,gender
         });
 
         await newEmployer.save();
 
-        const token = jwt.sign({id: newEmployer._id}, process.env.JWT_SECRET, {expiresIn: '7d'}); 
+        const token = jwt.sign({_id: newEmployer._id}, process.env.JWT_SECRET, {expiresIn: '7d'}); 
         
         res.cookie("token", token, {
             httpOnly: true,
@@ -141,6 +141,7 @@ export const employerLogin = async(req,res)=>{
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
             
         })
+
         return res.status(200).json({success:true, message:"Welcome to Rokomari"});
 
         }else{

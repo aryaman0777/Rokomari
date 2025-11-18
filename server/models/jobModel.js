@@ -2,14 +2,33 @@ import mongoose from "mongoose";
 
 //const {v4:uuidv4}=require('uuidv4');
 
+// const userDetailsSchema = new mongoose.Schema(
+//     {
+//         name:{
+//             type:String,
+//             required:true,
+//         },
+//         phone:{
+//             type:String,
+//             required:true,
+//         },
+//         email:{
+//             type:String,
+//             required:true,
+//         }
+//     }
+// )
+// export const userDetailsModel=mongoose.models.user||mongoose.model('user',userDetailsSchema);
+
 const jobSchema = new mongoose.Schema(
     {
         //auto generate krna h
-        id:{
-            type:Number,
-            required: true,
-            unique: true, 
-        },
+        
+        // jobId:{
+        //     type:Number,
+        //     required: true,
+        //     unique: true, 
+        // },
         category:{
             type:String,
             required:true,
@@ -30,7 +49,8 @@ const jobSchema = new mongoose.Schema(
         },
         //list bnana h with name,email,phone.
         contactDetails:{
-            type:Object,
+            type: Object,
+            //ref: "employerModel",
             required: true,
            
         },
@@ -58,4 +78,4 @@ const jobSchema = new mongoose.Schema(
     }
 );
 
-export const jobModel=mongoose.models.user||mongoose.model('jobs',jobSchema);
+export const jobModel=mongoose.models.jobs||mongoose.model('jobs',jobSchema);

@@ -4,11 +4,11 @@ import mongoose from "mongoose";
 
 const employeeSchema = new mongoose.Schema(
     {
-        id:{
-            type:Number,
-            required: true,
-            unique: true,  
-        },
+        // id:{
+        //     type:Number,
+        //     required: true,
+        //     unique: true,  
+        // },
         name:{
             type:String,
             required: true,
@@ -49,11 +49,11 @@ export const employeeModel=mongoose.models.user||mongoose.model('employee',emplo
 
 const employerSchema = new mongoose.Schema(
     {
-        id:{
-            type:Number,
-            required: true,
-            unique: true,  
-        },
+        // id:{
+        //     type:Number,
+        //     required: true,
+        //     unique: true,  
+        // },
         name:{
             type:String,
             required: true,
