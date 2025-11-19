@@ -1,0 +1,97 @@
+import { jobModel} from "../models/jobModel.js";
+import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
+import { employerModel } from "../models/userModel.js";
+
+export const createJob = async(req,res)=>{
+    try{
+        const {title,description,category,jobCost,expireAt} = req.body;
+        
+
+        if(!title || !description || !category || !jobCost || !expireAt){
+            return res.status(400).json({success:false , message:"All fields needed"});
+        }
+
+        const id = req.body.id;
+        
+        const existingUser = await employerModel.findById(id);
+
+        const newJob = new jobModel({
+            title,description,contactDetails:{_id:existingUser._id,name:existingUser.name,phone:existingUser.phone,email:existingUser.email},category,jobCost,expireAt
+        });
+
+        await newJob.save();
+
+        return res.status(200).json({success:true, message:"job successfully posted"})
+    }
+    catch(error){
+        return res.status(400).json(error.message);
+    }
+
+};
+
+export const updateJob= async(req,res)=>{
+    try {
+        //delete
+
+        return res.status(200).json({success:true, message:"job successfully deleted"})
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+}
+
+
+export const deleteJob= async(req,res)=>{
+
+    try {
+        //delete
+        const {_id} = req.body;
+        console.log(_id)
+        await jobModel.deleteOne({_id});
+        
+        
+
+        return res.status(200).json({success:true, message:"job successfully deleted"})
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+}
+
+export const viewJob= async(req,res)=>{
+    try {
+        
+        // const id = req.body.id;
+        // console.log(res.body);
+        const {token}=req.cookies;
+        const decodedToken =jwt.verify(token,process.env.JWT_SECRET);
+       
+
+        const allJobs = await jobModel.find();
+        //console.log(allJobs);
+        let jobList=[];
+        for(const job of allJobs){
+            console.log(job.contactDetails._id.toString())
+            console.log(decodedToken.id)
+            if(job.contactDetails._id.toString()===decodedToken.id){
+            jobList.push(job);
+           console.log(jobList); 
+        }
+
+        }
+
+        if(jobList.length!=0){
+            return res.status(200).json({success:true, message:jobList});
+
+        }
+        else{
+            return res.status(400).json({success:true , message:"no job posted"});
+        }
+    
+
+
+
+        //const jobList = await jobModel.findById(contactDetails._id
+    } catch (error) {
+        return res.status(400).json(error.message);
+    }
+}

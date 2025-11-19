@@ -4,6 +4,7 @@ import 'dotenv/config';
 import express from "express";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js"
+import jobRoutes from "./routes/jobRoutes.js"
 
 
 const app = express();
@@ -17,6 +18,7 @@ app.use(cors({ credentials: true }));
 app.get('/', (req, res) => res.send("API is Working fine"));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/job', jobRoutes);
 
 
 
