@@ -6,11 +6,11 @@ export const userAuth =async (req,res,next)=>{
     if(!token)
         return res.status(400).json({success:false, message:"Not Logged in"});
     try {
-        
         const decodedToken =jwt.verify(token,process.env.JWT_SECRET);
-        console.log(req.body.id);
         if(decodedToken.id){
-            req.body.id=decodedToken.id; 
+            //req.body.id=decodedToken.id;
+            req.user = decodedToken;
+            
         }else{
             return res.status(400).json({success:false, message:"Unauthorised"});
         }

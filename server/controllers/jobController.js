@@ -12,7 +12,8 @@ export const createJob = async(req,res)=>{
             return res.status(400).json({success:false , message:"All fields needed"});
         }
 
-        const id = req.body.id;
+        const id = req.user.id;
+        console.log("a"+id);
         
         const existingUser = await employerModel.findById(id);
 
@@ -60,19 +61,15 @@ export const deleteJob= async(req,res)=>{
 export const viewJob= async(req,res)=>{
     try {
         
-        // const id = req.body.id;
-        // console.log(res.body);
-        const {token}=req.cookies;
-        const decodedToken =jwt.verify(token,process.env.JWT_SECRET);
-       
+        const userId = req.user.id;
 
         const allJobs = await jobModel.find();
-        //console.log(allJobs);
+       
         let jobList=[];
         for(const job of allJobs){
-            console.log(job.contactDetails._id.toString())
-            console.log(decodedToken.id)
-            if(job.contactDetails._id.toString()===decodedToken.id){
+            //console.log(job.contactDetails._id.toString())
+            //console.log(decodedToken.id)
+            if(job.contactDetails._id.toString()===userId){
             jobList.push(job);
            console.log(jobList); 
         }
@@ -87,10 +84,6 @@ export const viewJob= async(req,res)=>{
             return res.status(400).json({success:true , message:"no job posted"});
         }
     
-
-
-
-        //const jobList = await jobModel.findById(contactDetails._id
     } catch (error) {
         return res.status(400).json(error.message);
     }
