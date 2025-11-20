@@ -6,6 +6,6 @@ const router = express.Router();
 router.post('/userAuth',userAuth);
 router.post('/createJob',userAuth,createJob);
 router.delete('/deleteJob',userAuth,deleteJob);
-router.get('/viewJob',viewJob);
+router.get('/viewJob',userAuth,viewJob);
 
 export default router;
