@@ -1,11 +1,11 @@
 import React from 'react'
 
-const loginEmployee = () => {
+const LoginEmployee = () => {
   return (
     <div>
-      le1
+      employee
     </div>
   )
 }
 
-export default loginEmployee
+export default LoginEmployee
