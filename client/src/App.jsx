@@ -1,23 +1,23 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
-import LoginEmployee from "./pages/loginEmployee";
-//import Login from "./pages/loginEmployee";
-import LoginEmployer from "./pages/loginEmployer";
-import RegisterEmployee from "./pages/registerEmployee";
-import RegisterEmployer from "./pages/registerEmployer";
 import { ToastContainer } from 'react-toastify';
+import LoginEmployee from "./pages/LoginEmployee";
+import LoginEmployer from "./pages/LoginEmployer";
+import RegisterEmployer from "./pages/RegisterEmployer";
+import RegisterEmployee from "./pages/RegisterEmployee";
+import Home from "./pages/Home";
+
 
 const App =() => {
   return (
     <div>
       <ToastContainer/>
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home/>} />
         <Route path="/loginEmployee" element={<LoginEmployee />} />
-        <Route path="/LoginEmployer" element={<LoginEmployer />} />
-        <Route path="/registerEmployee" element={<RegisterEmployee />} />
+        <Route path="/loginEmployer" element={<LoginEmployer />} />
         <Route path="/registerEmployer" element={<RegisterEmployer />} />
+        <Route path="/registerEmployee" element={<RegisterEmployee />} />
       </Routes>
     </div>
   );

@@ -33,9 +33,35 @@ export const createJob = async(req,res)=>{
 
 export const updateJob= async(req,res)=>{
     try {
-        //delete
+        //update
+        const {_id,title,description,category,jobCost,expireAt} = req.body;
+        console.log(_id)
 
-        return res.status(200).json({success:true, message:"job successfully deleted"})
+        const job = await jobModel.findById(_id);
+        if(title){
+            job.title=title;
+            console.log(job.title)
+        }
+        if(description){
+            job.description=description;
+        }
+        if(category){
+            job.category=category;
+        }
+        if(jobCost){
+            job.jobCost=jobCost;
+        }
+        if(expireAt){
+            job.expireAt=expireAt;
+        }
+    
+        job.updatedAt = Date.now();
+        await job.save();
+
+
+        
+
+        return res.status(200).json({success:true, message:"job successfully updated"})
     } catch (error) {
         return res.status(400).json(error.message);
     }
