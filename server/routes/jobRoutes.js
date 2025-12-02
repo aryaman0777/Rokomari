@@ -3,6 +3,7 @@ import {createJob, deleteJob, updateJob, viewJob} from "../controllers/jobContro
 import {userAuth} from "../middleware/userAuth.js"
 
 const router = express.Router();
+
 router.post('/userAuth',userAuth);
 router.post('/createJob',userAuth,createJob);
 router.put('/updateJob',updateJob);

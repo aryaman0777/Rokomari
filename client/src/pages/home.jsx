@@ -9,7 +9,7 @@ const Home = () => {
 }
 
 export default Home;*/
-
+/*
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../components/Navbar';
@@ -29,3 +29,34 @@ return (
 }
 
 export default Home
+*/
+
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+
+const Home = () => {
+  return (
+    <div className="flex flex-col min-h-screen">
+
+      {/* Navbar */}
+      <Navbar />
+
+      {/* Page Content */}
+      <main className="flex-grow">
+        <div className="max-w-7xl mx-auto px-4 py-10">
+          <h1 className="text-4xl font-bold">Welcome to OddJob</h1>
+          <p className="text-gray-600 mt-2">
+            Find local workers or get hired for small tasks instantly.
+          </p>
+        </div>
+      </main>
+
+      {/* Footer */}
+      <Footer />
+
+    </div>
+    
+  );
+};
+
+export default Home;

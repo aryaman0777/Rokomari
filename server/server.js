@@ -5,7 +5,7 @@ import express from "express";
 import connectDB from "./config/db.js";
 import authRoutes from "./routes/authRoutes.js";
 import jobRoutes from "./routes/jobRoutes.js";
-
+import userRoutes from "./routes/userRoutes.js";
 
 const app = express();
 connectDB();
@@ -21,6 +21,7 @@ app.get('/', (req, res) => res.send("API is Working fine"));
 
 app.use('/api/auth', authRoutes);
 app.use('/api/job', jobRoutes);
+app.use('/api/user/',userRoutes)
 
 
 

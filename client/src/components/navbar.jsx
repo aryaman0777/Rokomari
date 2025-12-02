@@ -1,5 +1,5 @@
 // Navbar.jsx
-import { useState } from 'react';
+/*import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Navbar= ()=> {
@@ -13,7 +13,7 @@ const Navbar= ()=> {
       </Link>
 
       <div className="flex items-center gap-4 relative">
-        {/* Login */}
+        {/* Login 
         <div className="relative">
           <button
             onClick={() => {
@@ -36,7 +36,7 @@ const Navbar= ()=> {
           )}
         </div>
 
-        {/* Register */}
+        {/* Register 
         <div className="relative">
           <button
             onClick={() => {
@@ -62,5 +62,112 @@ const Navbar= ()=> {
     </nav>
   );
 }
+
+export default Navbar;
+*/
+
+
+import { useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { AppContext } from "../context/AppContext";
+import axios from "axios";
+
+const Navbar = () => {
+  const { isLoggedin, userData, setIsLoggedin, setUserData, backendUrl } =
+    useContext(AppContext);
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await axios.get(`${backendUrl}/api/auth/logout`);
+      setIsLoggedin(false);
+      setUserData(null);
+      navigate("/");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  return (
+    <nav className="bg-white shadow-md w-full">
+      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
+
+        {/* Logo */}
+        <Link to="/" className="text-xl font-bold text-blue-600">
+          OddJob
+        </Link>
+
+        {/* Right side */}
+        <div className="flex items-center gap-4">
+
+          {!isLoggedin ? (
+            <>
+              {/* Login Dropdown */}
+              <div className="relative group">
+                <button className="text-gray-700 font-medium hover:text-blue-600">
+                  Login
+                </button>
+
+                <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-40 p-2">
+                  <Link
+                    to="/loginEmployee"
+                    className="block px-3 py-2 hover:bg-gray-100 rounded-md"
+                  >
+                    Employee Login
+                  </Link>
+
+                  <Link
+                    to="/loginEmployer"
+                    className="block px-3 py-2 hover:bg-gray-100 rounded-md"
+                  >
+                    Employer Login
+                  </Link>
+                </div>
+              </div>
+
+              {/* Register Dropdown */}
+              <div className="relative group">
+                <button className="text-gray-700 font-medium hover:text-blue-600">
+                  Register
+                </button>
+
+                <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md mt-2 w-40 p-2">
+                  <Link
+                    to="/registerEmployee"
+                    className="block px-3 py-2 hover:bg-gray-100 rounded-md"
+                  >
+                    Employee Register
+                  </Link>
+
+                  <Link
+                    to="/registerEmployer"
+                    className="block px-3 py-2 hover:bg-gray-100 rounded-md"
+                  >
+                    Employer Register
+                  </Link>
+                </div>
+              </div>
+            </>
+          ) : (
+            <>
+              {/* User Info */}
+              <span className="text-gray-700 font-medium">
+                Hi, {userData?.name || "User"}
+              </span>
+
+              <button
+                onClick={handleLogout}
+                className="bg-red-500 text-white px-4 py-1.5 rounded-md hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+};
 
 export default Navbar;
