@@ -1,11 +1,13 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { ToastContainer } from 'react-toastify';
-import LoginEmployee from "./pages/LoginEmployee";
+//import LoginEmployee from "./pages/LoginEmployee";
 import LoginEmployer from "./pages/LoginEmployer";
 import RegisterEmployer from "./pages/RegisterEmployer";
-import RegisterEmployee from "./pages/RegisterEmployee";
+//import RegisterEmployee from "./pages/RegisterEmployee";
 import Home from "./pages/Home";
+import RegisterEmployee from "./pages/registerEmployee";
+import LoginEmployee from "./pages/loginEmployee";
 
 
 const App =() => {
